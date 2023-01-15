@@ -66,7 +66,7 @@ class BST:
                 cur = cur.right
         return cur
 
-    def __delete_recursion(self, cur, target):
+    def __delete_recursion(self, cur, target):  # 삭제하는 노드가 리프 노드인지 자식만 있는 노드인지 나누어서 삭제해야함
         if not cur:
             return None
         elif target < cur.key:

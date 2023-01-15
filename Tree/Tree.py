@@ -1,5 +1,4 @@
 from queue import Queue
-from Stack import Stack
 
 
 class TreeNode:
@@ -36,63 +35,70 @@ class TreeNode:
         self.__right = right
 
 
-def preorder(cur):  # 전위
+def pre_order(cur):  # 전위
     if not cur:
         return
 
     print(cur.data, end=' ')
-    preorder(cur.left)
-    preorder(cur.right)
+    pre_order(cur.left)
+    pre_order(cur.right)
 
 
-def inorder(cur):  # 중위
+def in_order(cur):  # 중위
     if not cur:
         return
 
-    preorder(cur.left)
+    pre_order(cur.left)
     print(cur.data, end=' ')
-    preorder(cur.right)
+    pre_order(cur.right)
 
 
-def postorder(cur):  # 후위
+def post_order(cur):  # 후위
     if not cur:
         return
 
-    preorder(cur.left)
-    preorder(cur.right)
+    pre_order(cur.left)
+    pre_order(cur.right)
     print(cur.data, end=' ')
 
 
-def iter_preorder(cur):
-    stack = Stack()
+def iter_pre_order(cur):
+    stack = []
     while True:
         while cur:
             print(cur.data, end='  ')
-            stack.push(cur)
+            stack.append(cur)
             cur = cur.left
 
-        cur = stack.pop()
-        if not cur:
+        try:
+            cur = stack.pop()
+            if not cur:
+                break
+
+            cur = cur.right
+        except:
             break
 
-        cur = cur.right
 
-
-def iter_inorder(cur):
-    stack = Stack()
+def iter_in_order(cur):
+    stack = []
     while True:
         while cur:
-            stack.push(cur)
+            stack.append(cur)
             cur = cur.left
-        cur = stack.pop()
-        if not cur:
+
+        try:
+            cur = stack.pop()
+            if not cur:
+                break
+
+            print(cur.data, end='  ')
+            cur = cur.right
+        except:
             break
 
-        print(cur.data, end='  ')
-        cur = cur.right
 
-
-def levelorder(cur):
+def level_order(cur):
     q = Queue()
 
     q.put(cur)
@@ -124,15 +130,15 @@ n3.left = n6
 n3.right = n7
 
 # preorder(n1)
-iter_preorder(n1)
+iter_pre_order(n1)
 print()
 
 # inorder(n1)
-iter_inorder(n1)
+iter_in_order(n1)
 print()
 
-postorder(n1)
+post_order(n1)
 print()
 
-levelorder(n1)
+level_order(n1)
 print()

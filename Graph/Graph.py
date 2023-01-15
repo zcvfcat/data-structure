@@ -1,6 +1,5 @@
 
 from queue import Queue
-from Stack import Stack
 
 
 class Graph:
@@ -46,24 +45,24 @@ class Graph:
                 self.__dfs_recursion(edge)
 
     def iter_dfs(self, v):
-        stack = Stack()
+        stack = list()
         self.init_visited()
 
-        stack.push(v)
+        stack.append(v)
         self.visited[v] = True
         print(v, end=" ")
 
         is_visited = False
 
-        while not stack.empty():
+        while not stack:
             is_visited = False
-            v = stack.peek()
+            v = stack[-1]
 
             edges = self.adj_list[v]
 
             for edge in edges:
                 if not self.visited[edge]:
-                    stack.push(edge)
+                    stack.append(edge)
                     self.visited[edge] = True
                     print(edge, end=" ")
                     is_visited = True

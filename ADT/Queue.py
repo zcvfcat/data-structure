@@ -16,3 +16,14 @@ class Queue:
 
     def peek(self):
         return self.container[0]
+
+
+q = Queue()
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+q.enqueue(4)
+q.enqueue(5)
+
+while not q.empty():
+    print(q.dequeue(), end='  ')
