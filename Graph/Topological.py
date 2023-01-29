@@ -1,3 +1,5 @@
+# 비순환 그래프
+
 class DirectAcyclicGraph:
     def __init__(self, vertex_num) -> None:
         self.adj_list = [[] for _ in range(vertex_num)]
