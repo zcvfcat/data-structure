@@ -13,7 +13,7 @@ class MinPriorityQueue:
 
 
 class ShortestPath:
-    def __init__(self, s, distance, p) -> None:
+    def __init__(self, s, distance, p):
         self.source = s
         self.distance = distance
         self.p = p
@@ -34,26 +34,27 @@ class ShortestPath:
 class Graph:
     BIG_NUMBER = 2000
 
-    def __init__(self, vertex_num) -> None:
-        self.adj_matrix = [[None for _ in range(vertex_num)] for _ in range(vertex_num)]
-        self.vertex_num = vertex_num
+    def __init__(self, node_length):
+        self.edges = [[None for _ in range(node_length)] for _ in range(node_length)]
+        self.node_length = node_length
 
-    def add_edge(self, u, v, w):
-        self.adj_matrix[u][v] = w
+    def add_edge(self, node, edge, weight):
+        self.edges[node][edge] = weight
 
     def dijkstra(self, s):
-        distance = [self.BIG_NUMBER for _ in range(self.vertex_num)]
-        p = [None for _ in range(self.vertex_num)]
+        distance = [self.BIG_NUMBER for _ in range(self.node_length)]
+        p = [None for _ in range(self.node_length)]
 
         S = set()
         pq = MinPriorityQueue()
-        for i in range(self.vertex_num):
+        
+        for i in range(self.node_length):
             pq.push((self.BIG_NUMBER, i))
 
         distance[s] = 0
         pq.push((0, s))
 
-        while len(S) < self.vertex_num:
+        while len(S) < self.node_length:
             d, v = pq.pop()
             if distance[v] != d:
                 continue
@@ -73,8 +74,8 @@ class Graph:
     def adjacent_set(self, v):
         adj_v = []
 
-        for i in range(self.vertex_num):
-            w = self.adj_matrix[v][i]
+        for i in range(self.node_length):
+            w = self.edges[v][i]
             if w:
                 adj_v.append((i, w))
         return adj_v
@@ -91,7 +92,7 @@ g.add_edge(3, 2, 12)
 
 source = 0
 sp = g.dijkstra(source)
-for i in range(g.vertex_num):
+for i in range(g.node_length):
     print(f"distance[{i}] : {sp.distance[i]}, p[{i}] : {sp.p[i]}")
 
 dest = 3

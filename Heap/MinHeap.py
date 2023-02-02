@@ -8,7 +8,7 @@ class Element:
 class MinHeap:
     MAX_ELEMENT = 200
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.arr = [None for _ in range(self.MAX_ELEMENT)]
         self.heapsize = 0
         self.pos = [None for _ in range(self.MAX_ELEMENT)]

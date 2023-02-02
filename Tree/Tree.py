@@ -2,12 +2,12 @@ from queue import Queue
 
 
 class TreeNode:
-    def __init__(self, data=None) -> None:
+    def __init__(self, data=None):
         self.__data = data
         self.__left = None
         self.__right = None
 
-    def __del__(self) -> None:
+    def __del__(self):
         print(f'data {self.__data} is deleted')
 
     @property

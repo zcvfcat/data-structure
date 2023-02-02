@@ -1,12 +1,9 @@
 class Queue:
-    def __init__(self) -> None:
+    def __init__(self):
         self.container = list()
 
     def empty(self):
-        if not self.container:
-            return True
-        else:
-            return False
+        return not self.container
 
     def enqueue(self, data):
         self.container.append(data)

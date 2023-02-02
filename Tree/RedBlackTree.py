@@ -1,5 +1,5 @@
 class RBNode:
-    def __init__(self, key) -> None:
+    def __init__(self, key):
         self.key = key
 
         self.color = 'RED'
@@ -12,7 +12,7 @@ class RBNode:
 
 
 class RedBlackTree:
-    def __init__(self) -> None:
+    def __init__(self):
         self.__root = None
         self.__EXT = RBNode(None)
         self.__EXT.color = 'BLACK'

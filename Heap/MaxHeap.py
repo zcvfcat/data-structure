@@ -1,12 +1,12 @@
 class Element:
-    def __init__(self, key) -> None:
+    def __init__(self, key):
         self.key = key
 
 
 class MaxHeap:
     MAX_ELEMENTS = 100
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.arr = [None for i in range(self.MAX_ELEMENTS + 1)]
         self.heap_size = 0
 

@@ -1,5 +1,5 @@
 class DisjointSet:
-    def __init__(self, vnum) -> None:
+    def __init__(self, vnum):
         self.parent = [-1 for _ in range(vnum)]
 
     def simple_find(self, i):

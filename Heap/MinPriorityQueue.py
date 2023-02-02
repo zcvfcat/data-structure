@@ -2,13 +2,13 @@ from heapq import heappush, heappop
 
 
 class Element:
-    def __init__(self, key, string) -> None:
+    def __init__(self, key, string):
         self.key = key
         self.data = string
 
 
 class MinPriorityQueue:
-    def __init__(self) -> None:
+    def __init__(self):
         self.heap = []
 
     def is_empty(self):

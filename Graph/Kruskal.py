@@ -2,14 +2,14 @@ from DisjointSet import DisjointSet
 
 
 class Edge:
-    def __init__(self, u, v, w) -> None:
+    def __init__(self, u, v, w):
         self.u = u
         self.v = v
         self.w = w
 
 
 class Graph:
-    def __init__(self, vertex_num) -> None:
+    def __init__(self, vertex_num):
         self.adj_list = [[] for _ in range(vertex_num)]
         self.edge_list = []
 

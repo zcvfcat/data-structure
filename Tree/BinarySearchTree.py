@@ -2,7 +2,7 @@ from BinaryTree import TreeNode
 
 
 class BST:
-    def __init__(self) -> None:
+    def __init__(self):
         self.root = None
 
     def get_root(self):
