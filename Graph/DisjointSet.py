@@ -1,22 +1,22 @@
 class DisjointSet:
-    def __init__(self, vnum):
-        self.parent = [-1 for _ in range(vnum)]
+    def __init__(self, node_length):
+        self.parent = [-1 for _ in range(node_length)]
 
     def simple_find(self, i):
         while self.parent[i] >= 0:
             i = self.parent[i]
         return i
 
-    def simple_union(self, i, j):
-        self.parent[i] = j
+    def simple_union(self, node, edge):
+        self.parent[node] = edge
 
-    def collapsing_find(self, i):
+    def collapsing_find(self, node):
         root = trail = lead = None
-        root = i
+        root = node
         while self.parent[root] >= 0:
             root = self.parent[root]
 
-        trail = i
+        trail = node
         while trail != root:
             lead = self.parent[trail]
             self.parent[trail] = root
@@ -24,16 +24,16 @@ class DisjointSet:
 
         return root
 
-    def weighted_union(self, i, j):
-        temp_cnt = self.parent[i] + self.parent[j]
+    def weighted_union(self, node_a, node_b):
+        temp_cnt = self.parent[node_a] + self.parent[node_b]
 
-        if self.parent[i] > self.parent[j]:
-            self.parent[i] = j
-            self.parent[j] = temp_cnt
+        if self.parent[node_a] > self.parent[node_b]:
+            self.parent[node_a] = node_b
+            self.parent[node_b] = temp_cnt
 
         else:
-            self.parent[j] = i
-            self.parent[i] = temp_cnt
+            self.parent[node_b] = node_a
+            self.parent[node_a] = temp_cnt
 
 
 ds = DisjointSet(5)

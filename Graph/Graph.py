@@ -1,34 +1,33 @@
 
-from queue import Queue
+from collections import deque
 
 
 class Graph:
-    def __init__(self, vertex_num):
-        self.adj_list = [[] for _ in range(vertex_num)]
-        self.visited = [False for _ in range(vertex_num)]
+    def __init__(self, node_length):
+        self.graph = [[] for _ in range(node_length)]
+        self.visited = [False for _ in range(node_length)]
 
     def add_edge(self, u, v):
-        self.adj_list[u].append(v)
-        self.adj_list[v].append(u)
+        self.graph[u].append(v)
+        self.graph[v].append(u)
 
     def init_visited(self):
         for i in range(len(self.visited)):
             self.visited[i] = False
 
     def bfs(self, node):
-        q = Queue()
+        q = deque([node])
         self.init_visited()
 
-        q.put(node)
         self.visited[node] = True
 
-        while not q.empty():
-            node = q.get()
-            edges = self.adj_list[node]
+        while q:
+            node = q.popleft()
+            edges = self.graph[node]
 
             for edge in edges:
                 if not self.visited[edge]:
-                    q.put(edge)
+                    q.append(edge)
                     self.visited[edge] = True
 
     def dfs(self, v):
@@ -39,26 +38,26 @@ class Graph:
         print(node, end=" ")
         self.visited[node] = True
 
-        edges = self.adj_list[node]
+        edges = self.graph[node]
         for edge in edges:
             if not self.visited[edge]:
                 self.__dfs_recursion(edge)
 
-    def iter_dfs(self, v):
+    def iter_dfs(self, node):
         stack = list()
         self.init_visited()
 
-        stack.append(v)
-        self.visited[v] = True
-        print(v, end=" ")
+        stack.append(node)
+        self.visited[node] = True
+        print(node, end=" ")
 
         is_visited = False
 
         while not stack:
             is_visited = False
-            v = stack[-1]
+            node = stack[-1]
 
-            edges = self.adj_list[v]
+            edges = self.graph[node]
 
             for edge in edges:
                 if not self.visited[edge]:
@@ -74,9 +73,9 @@ class Graph:
     def dfs_all(self):
         self.init_visited()
 
-        for i in range(len(self.visited)):
-            if not self.visited[i]:
-                self.__dfs_recursion(i)
+        for node in range(len(self.visited)):
+            if not self.visited[node]:
+                self.__dfs_recursion(node)
 
 
 g = Graph(6)
