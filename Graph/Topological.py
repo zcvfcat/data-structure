@@ -1,12 +1,12 @@
 # 비순환 그래프
 
 class DirectAcyclicGraph:
-    def __init__(self, vertex_num):
-        self.adj_list = [[] for _ in range(vertex_num)]
-        self.visited = [False for _ in range(vertex_num)]
+    def __init__(self, node_length):
+        self.graph = [[] for _ in range(node_length)]
+        self.visited = [False for _ in range(node_length)]
 
     def add_edge(self, u, v):
-        self.adj_list[u].append(v)
+        self.graph[u].append(v)
 
     def init_visited(self):
         for i in range(len(self.visited)):
@@ -15,7 +15,7 @@ class DirectAcyclicGraph:
     def dfs(self, v, ts_list):
         self.visited[v] = True
 
-        adj_v = self.adj_list[v]
+        adj_v = self.graph[v]
         for u in adj_v:
             if not self.visited[u]:
                 self.dfs(u, ts_list)
