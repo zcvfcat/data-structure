@@ -1,3 +1,4 @@
+from math import inf
 from heapq import heappush, heappop
 
 
@@ -32,7 +33,7 @@ class ShortestPath:
 
 
 class Graph:
-    BIG_NUMBER = 2000
+    BIG_NUMBER = inf
 
     def __init__(self, node_length):
         self.edges = [[None for _ in range(node_length)] for _ in range(node_length)]
@@ -43,42 +44,42 @@ class Graph:
 
     def dijkstra(self, s):
         distance = [self.BIG_NUMBER for _ in range(self.node_length)]
-        p = [None for _ in range(self.node_length)]
+        paths = [None for _ in range(self.node_length)]
 
         S = set()
         pq = MinPriorityQueue()
-        
-        for i in range(self.node_length):
-            pq.push((self.BIG_NUMBER, i))
+
+        for node in range(self.node_length):
+            pq.push((self.BIG_NUMBER, node))
 
         distance[s] = 0
         pq.push((0, s))
 
         while len(S) < self.node_length:
-            d, v = pq.pop()
-            if distance[v] != d:
+            weight, node = pq.pop()
+            if distance[node] != weight:
                 continue
 
-            S.add(v)
+            S.add(node)
 
-            adj_v = self.adjacent_set(v)
-            for u, w_u_v in adj_v:
-                if u not in S and distance[u] > distance[v]+w_u_v:
-                    distance[u] = distance[v]+w_u_v
-                    p[u] = v
-                    pq.push((distance[u], u))
+            edges = self.adjacent_set(node)
+            for edge, cost in edges:
+                if edge not in S and distance[edge] > distance[node]+cost:
+                    distance[edge] = distance[node]+cost
+                    paths[edge] = node
+                    pq.push((distance[edge], edge))
 
-        sp = ShortestPath(s, distance, p)
+        sp = ShortestPath(s, distance, paths)
         return sp
 
-    def adjacent_set(self, v):
-        adj_v = []
+    def adjacent_set(self, node):
+        edges = []
 
-        for i in range(self.node_length):
-            w = self.edges[v][i]
-            if w:
-                adj_v.append((i, w))
-        return adj_v
+        for edge in range(self.node_length):
+            weight = self.edges[node][edge]
+            if weight:
+                edges.append((edge, weight))
+        return edges
 
 
 g = Graph(4)
