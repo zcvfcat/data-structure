@@ -1,27 +1,23 @@
 class Element:
-    def __init__(self, node, w, _from):
-        self.w = w
-        self.v = node
-        self._from = _from
+    def __init__(self, node, weight, edge):
+        self.node = node
+        self.weight = weight
+        self.edge = edge
 
 
 class MinHeap:
     MAX_ELEMENT = 200
 
     def __init__(self):
-        self.arr = [None for _ in range(self.MAX_ELEMENT)]
-        self.heapsize = 0
+        self.array = [None for _ in range(self.MAX_ELEMENT)]
+        self.heap_size = 0
         self.pos = [None for _ in range(self.MAX_ELEMENT)]
 
     def is_empty(self):
-        if self.heapsize == 0:
-            return True
-        return False
+        return self.heap_size == 0
 
     def is_full(self):
-        if self.heapsize >= self.MAX_ELEMENTS:
-            return True
-        return False
+        return self.heap_size >= self.MAX_ELEMENTS
 
     def parent(self, idx):
         return idx >> 1
@@ -36,55 +32,55 @@ class MinHeap:
         if self.is_full():
             raise IndexError("the heap is full!!")
 
-        self.heapsize += 1
-        cur_idx = self.heapsize
+        self.heap_size += 1
+        curr_idx = self.heap_size
 
-        while cur_idx != 1 and item.w < self.arr[self.parent[cur_idx]].w:
-            self.arr[cur_idx] = self.arr[self.parent(cur_idx)]
-            self.pos[self.arr[cur_idx].v] = cur_idx
+        while curr_idx != 1 and item.weight < self.array[self.parent[curr_idx]].weight:
+            self.array[curr_idx] = self.array[self.parent(curr_idx)]
+            self.pos[self.array[curr_idx].node] = curr_idx
 
-        self.arr[cur_idx] = item
-        self.pos[item.v] = cur_idx
+        self.array[curr_idx] = item
+        self.pos[item.node] = curr_idx
 
     def pop(self):
         if self.is_empty():
             return None
 
-        rem_elem = self.arr[1]
+        rem_elem = self.array[1]
 
-        temp = self.arr[self.heapsize]
-        self.heapsize -= 1
+        temp = self.array[self.heap_size]
+        self.heap_size -= 1
 
-        cur_idx = 1
-        child = self.left(cur_idx)
+        curr_idx = 1
+        child = self.left(curr_idx)
 
-        while child <= self.heapsize:
-            if child < self.heapsize and \
-                    self.arr[self.left(cur_idx)].w > self.arr[self.right(cur_idx)].w:
-                child = self.right(cur_idx)
+        while child <= self.heap_size:
+            if child < self.heap_size and \
+                    self.array[self.left(curr_idx)].weight > self.array[self.right(curr_idx)].weight:
+                child = self.right(curr_idx)
 
-            if temp.w <= self.arr[child].w:
+            if temp.weight <= self.array[child].weight:
                 break
 
-            self.arr[cur_idx] = self.arr[child]
-            self.pos[self.arr[cur_idx].v] = cur_idx
+            self.array[curr_idx] = self.array[child]
+            self.pos[self.array[curr_idx].node] = curr_idx
 
-            cur_idx = child
-            child = self.left(cur_idx)
+            curr_idx = child
+            child = self.left(curr_idx)
 
-        self.arr[cur_idx] = temp
-        self.pos[temp.v] = cur_idx
+        self.array[curr_idx] = temp
+        self.pos[temp.node] = curr_idx
 
         return rem_elem
 
-    def decrease_weight(self, new_elem):
-        cur = self.pos[new_elem.v]
+    def decrease_weight(self, elem):
+        curr = self.pos[elem.node]
 
-        while cur != 1 and new_elem.w < self.arr[self.parent(cur)].w:
-            self.arr[cur] = self.arr[self.parent(cur)]
-            self.pos[self.arr[cur].v] = cur
+        while curr != 1 and elem.weight < self.array[self.parent(curr)].weight:
+            self.array[curr] = self.array[self.parent(curr)]
+            self.pos[self.array[curr].node] = curr
 
-            cur = self.parent(cur)
+            curr = self.parent(curr)
 
-        self.arr[cur] = new_elem
-        self.pos[new_elem.v] = cur
+        self.array[curr] = elem
+        self.pos[elem.node] = curr

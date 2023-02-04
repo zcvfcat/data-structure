@@ -1,4 +1,4 @@
-class DisjointSet:
+class DisjointSet:  # 서로소 집합
     def __init__(self, node_length):
         self.parent = [-1 for _ in range(node_length)]
 

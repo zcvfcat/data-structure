@@ -28,46 +28,46 @@ class RedBlackTree:
         self.pre_order_traverse(cur.left, func, * args, **kwargs)
         self.pre_order_traverse(cur.right, func, * args, **kwargs)
 
-    def __left_rotate(self, n):
-        r = n.right
-        l = r.left
+    def __left_rotate(self, node):
+        right = node.right
+        left = right.left
 
-        l.parent = n
-        n.right = l
+        left.parent = node
+        node.right = left
 
-        if n == self.__root:
-            self.__root = r
-        elif n.parent.left == n:
-            n.parent.left = r
+        if node == self.__root:
+            self.__root = right
+        elif node.parent.left == node:
+            node.parent.left = right
         else:
-            n.parent.right = r
+            node.parent.right = right
 
-        r.parent = n.parent
-        r.left = n
-        n.parent = r
+        right.parent = node.parent
+        right.left = node
+        node.parent = right
 
-    def __right_rotate(self, n):
-        l = n.left
-        r = l.right
+    def __right_rotate(self, node):
+        left = node.left
+        right = left.right
 
-        r.parent = n
-        n.left = r
+        right.parent = node
+        node.left = right
 
-        if n == self.__root:
-            self.__root = l
-        elif n.parent.left == n:
-            n.parent.left = l
+        if node == self.__root:
+            self.__root = left
+        elif node.parent.left == node:
+            node.parent.left = left
         else:
-            n.parent.right = l
+            node.parent.right = left
 
-        l.parent = n.parent
-        l.right = n
-        n.parent = l
+        left.parent = node.parent
+        left.right = node
+        node.parent = left
 
-    def __insert_fix(self, n):
+    def __insert_fix(self, node):
         pn = gn = un = None
 
-        pn = n.parent
+        pn = node.parent
 
         while pn != None and pn.color == 'RED':
             gn = pn.parent
@@ -78,13 +78,13 @@ class RedBlackTree:
                     gn.color = 'RED'
                     gn.color = un.color = 'BLACK'
 
-                    n = gn
-                    pn = n.parent
+                    node = gn
+                    pn = node.parent
 
                 else:
-                    if pn.right == n:
+                    if pn.right == node:
                         self.__left_rotate(pn)
-                        n, pn = pn, n
+                        node, pn = pn, node
 
                     pn.color, gn.color = gn.color, pn.color
                     self.__right_rotate(gn)
@@ -95,12 +95,12 @@ class RedBlackTree:
                     gn.color = 'RED'
                     pn.color = un.color = 'BLACK'
 
-                    n = gn
-                    pn = n.parent
+                    node = gn
+                    pn = node.parent
                 else:
-                    if pn.left == n:
+                    if pn.left == node:
                         self.__right_rotate(pn)
-                        n, pn = pn, n
+                        node, pn = pn, node
 
                     pn.color, gn.color = gn.color, pn.color
                     self.__left_rotate(gn)
