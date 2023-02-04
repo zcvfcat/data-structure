@@ -7,18 +7,14 @@ class MaxHeap:
     MAX_ELEMENTS = 100
 
     def __init__(self):
-        self.arr = [None for i in range(self.MAX_ELEMENTS + 1)]
+        self.arr = [None for _ in range(self.MAX_ELEMENTS + 1)]
         self.heap_size = 0
 
     def is_empty(self):
-        if self.heap_size == 0:
-            return True
-        return False
+        return self.heap_size == 0
 
     def is_full(self):
-        if self.heap_size >= self.MAX_ELEMENTS:
-            return True
-        return False
+        return self.heap_size >= self.MAX_ELEMENTS
 
     def parent(self, idx):
         return idx >> 1
@@ -70,7 +66,7 @@ class MaxHeap:
 
 
 def print_heap(h):
-    for i in range(1, h.heapsize + 1):
+    for i in range(1, h.heap_size + 1):
         print("{}".format(h.arr[i].key), end=" ")
     print()
 

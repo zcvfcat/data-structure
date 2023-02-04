@@ -1,7 +1,7 @@
 class Element:
-    def __init__(self, v, w, _from):
+    def __init__(self, node, w, _from):
         self.w = w
-        self.v = v
+        self.v = node
         self._from = _from
 
 

@@ -8,99 +8,99 @@ class BST:
     def get_root(self):
         return self.root
 
-    def preorder_traverse(self, cur, func):
-        if not cur:
+    def pre_order_traverse(self, curr, func):
+        if not curr:
             return
 
-        func(cur)
-        self.preorder_traverse(cur.left, func)
-        self.preorder_traverse(cur.right, func)
+        func(curr)
+        self.pre_order_traverse(curr.left, func)
+        self.pre_order_traverse(curr.right, func)
 
-    def inorder_traverse(self, cur, func):
-        if not cur:
+    def in_order_traverse(self, curr, func):
+        if not curr:
             return
 
-        self.inorder_traverse(cur.left, func)
-        func(cur)
-        self.inorder_traverse(cur.right, func)
+        self.in_order_traverse(curr.left, func)
+        func(curr)
+        self.in_order_traverse(curr.right, func)
 
-    def __make_left(self, cur, left):
-        cur.left = left
+    def __make_left(self, curr, left):
+        curr.left = left
         if left:
-            left.parent = cur
+            left.parent = curr
 
-    def __make_right(self, cur, right):
-        cur.right = right
+    def __make_right(self, curr, right):
+        curr.right = right
         if right:
-            right.parent = cur
+            right.parent = curr
 
     def insert(self, key):
         new_node = TreeNode(key)
 
-        cur = self.root
-        if not cur:
+        curr = self.root
+        if not curr:
             self.root = new_node
             return
 
         while True:
-            parent = cur
-            if key < cur.key:
-                cur = cur.left
-                if not cur:
+            parent = curr
+            if key < curr.key:
+                curr = curr.left
+                if not curr:
                     self.__make_left(parent, new_node)
                     return
             else:
-                cur = cur.right
-                if not cur:
+                curr = curr.right
+                if not curr:
                     self.__make_right(parent, new_node)
                     return
 
     def search(self, target):
-        cur = self.root
-        while cur:
-            if cur.key == target:
-                return cur
-            elif cur.key > target:
-                cur = cur.left
-            elif cur.key < target:
-                cur = cur.right
-        return cur
+        curr = self.root
+        while curr:
+            if curr.key == target:
+                return curr
+            elif curr.key > target:
+                curr = curr.left
+            elif curr.key < target:
+                curr = curr.right
+        return curr
 
-    def __delete_recursion(self, cur, target):  # 삭제하는 노드가 리프 노드인지 자식만 있는 노드인지 나누어서 삭제해야함
-        if not cur:
+    def __delete_recursion(self, curr, target):  # 삭제하는 노드가 리프 노드인지 자식만 있는 노드인지 나누어서 삭제해야함
+        if not curr:
             return None
-        elif target < cur.key:
-            new_left = self.__delete_recursion(cur.left, target)
-            self.__make_left(cur, new_left)
-        elif target > cur.key:
-            new_right = self.__delete_recursion(cur.right, target)
-            self.__make_right(cur, new_right)
+        elif target < curr.key:
+            new_left = self.__delete_recursion(curr.left, target)
+            self.__make_left(curr, new_left)
+        elif target > curr.key:
+            new_right = self.__delete_recursion(curr.right, target)
+            self.__make_right(curr, new_right)
         else:
-            if not cur.left and not cur.right:
-                cur = None
-            elif not cur.right:
-                cur = cur.left
-            elif not cur.left:
-                cur = cur.right
+            if not curr.left and not curr.right:
+                curr = None
+            elif not curr.right:
+                curr = curr.left
+            elif not curr.left:
+                curr = curr.right
             else:
-                replace = cur.left
+                replace = curr.left
                 replace = self.max(replace)
-                cur.key, replace.key = replace.key, cur.key
-                new_left = self.__delete_recursion(cur.left, replace.key)
-                self.__make_left(cur, new_left)
-        return cur
+                curr.key, replace.key = replace.key, curr.key
+                new_left = self.__delete_recursion(curr.left, replace.key)
+                self.__make_left(curr, new_left)
+        return curr
 
     def delete(self, target):
         new_root = self.__delete_recursion(self.root, target)
         self.root = new_root
 
     def min(self, cur):
-        while cur.left != None:
+        while cur.left is not None:
             cur = cur.left
         return cur
 
     def max(self, cur):
-        while cur.right != None:
+        while cur.right is not None:
             cur = cur.right
         return cur
 
@@ -110,7 +110,7 @@ class BST:
 
         parent = cur.parent
 
-        while parent and cur == parent.left:
+        while parent and cur is parent.left:
             cur = parent
             parent = parent.parent
 
@@ -122,7 +122,7 @@ class BST:
 
         parent = cur.parent
 
-        while parent and cur == parent.right:
+        while parent and cur is parent.right:
             cur = parent
             parent = parent.parent
 
@@ -147,7 +147,7 @@ def f(x): return print(x.key, end='  ')
 
 
 #bst.preorder_traverse(bst.get_root(), f)
-bst.inorder_traverse(bst.get_root(), f)
+bst.in_order_traverse(bst.get_root(), f)
 print()
 
 searched_node = bst.search(8)
@@ -179,7 +179,7 @@ bst.delete(6)
 
 # print(bst.delete(15))
 
-bst.preorder_traverse(bst.get_root(), f)
+bst.pre_order_traverse(bst.get_root(), f)
 # bst.inorder_traverse(bst.get_root(), f)
 print()
 print('*'*100)
